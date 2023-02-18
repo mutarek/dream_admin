@@ -1,3 +1,4 @@
+import 'package:dream_touch_admin/app/controller/product_provider.dart';
 import 'package:dream_touch_admin/app/screens/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ void main() async{
     providers: [
       ChangeNotifierProvider(create: (context) => AuthProvider()),
       ChangeNotifierProvider(create: (context) => HomeProvider()),
+      ChangeNotifierProvider(create: (context) => ProductsProvider()),
     ],
     child: MyApp(isLogin),
   ));
