@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "818193135266",
+    "project_id": "asigntask",
+    "storage_bucket": "asigntask.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818193135266:android:ec899679fcdfa7e73f89fb",
+        "android_client_info": {
+          "package_name": "com.dhakadigital.dreamtouch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818193135266-rrouh7hnmkt9va7ibdif0op5075uben9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZjM0CqeKn2q0JHcaojQhWWWJ-LKU1IL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818193135266-rrouh7hnmkt9va7ibdif0op5075uben9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818193135266:android:da8a28bcdbeae4983f89fb",
+        "android_client_info": {
+          "package_name": "com.example.dream_touch_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818193135266-rrouh7hnmkt9va7ibdif0op5075uben9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZjM0CqeKn2q0JHcaojQhWWWJ-LKU1IL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818193135266-rrouh7hnmkt9va7ibdif0op5075uben9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
