@@ -41,7 +41,7 @@ class EachProfilePage extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Padding(padding: const EdgeInsets.all(3), child: CustomButton(btnTxt: "Add Products",onTap: (){
-                 Get.to(()=> const AddProducts(isFromProduct: true));
+                 Get.to(()=> AddProducts(userModel,isFromProduct: true));
                 })),
               ),
               Expanded(
@@ -51,7 +51,7 @@ class EachProfilePage extends StatelessWidget {
                   child: CustomButton(
                     btnTxt: "Failed Report",
                     onTap: () {
-                      Get.to(() => const AddProducts(isFromFailure: true));
+                      Get.to(() =>  AddProducts(userModel,isFromFailure: true));
                     },
                   ),
                 ),

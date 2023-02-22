@@ -2,21 +2,25 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dream_touch_admin/app/widgets/page_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 
 import '../controller/product_provider.dart';
+import '../model/user_model.dart';
 import '../utils/text.styles.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
 
 class AddProducts extends StatefulWidget {
-  const AddProducts(
+  const AddProducts(this.userModel,
       {this.isFromProduct = false, this.isFromNotice = false, this.isFromFailure = false, this.isFromSuccess = false, Key? key})
       : super(key: key);
   final bool isFromProduct;
   final bool isFromNotice;
   final bool isFromFailure;
   final bool isFromSuccess;
+  final UserModel userModel;
 
   @override
   State<AddProducts> createState() => _AddProductsState();
@@ -100,7 +104,7 @@ class _AddProductsState extends State<AddProducts> {
                                                 top: 5,
                                                 child: IconButton(
                                                     onPressed: () {
-                                                      //postProvider.clearUserImage(index);
+                                                      taskProvider.clearImage(index);
                                                     },
                                                     icon: const Icon(Icons.clear, color: Colors.white)))
                                           ],
@@ -113,6 +117,7 @@ class _AddProductsState extends State<AddProducts> {
                       : const SizedBox.shrink(),
                   CustomButton(
                     onTap: () {
+                      taskProvider.clearCoverProfile();
                       taskProvider.pickImage();
                     },
                     btnTxt: "Upload Images",
@@ -123,7 +128,7 @@ class _AddProductsState extends State<AddProducts> {
             ),
           ),
           bottomSheet: Container(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             height: 50,
             child: taskProvider.isLoading?
             const Center(
@@ -131,9 +136,18 @@ class _AddProductsState extends State<AddProducts> {
             ):
             CustomButton(
                 radius: 15,
-                btnTxt: "Create Task",
+                btnTxt: "Create",
                 onTap: () {
-
+                  taskProvider.uploadPhoto((status){
+                    if(status){
+                      taskProvider.addProducts(titleController.text, descController.text,widget.userModel.docId.toString(),(status){
+                        if(status){
+                          Get.back();
+                        }
+                        else{}
+                      });
+                    }
+                  });
                 }),
           ),
         );
