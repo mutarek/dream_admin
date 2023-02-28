@@ -10,6 +10,8 @@ class UserModel {
   String? permitCode;
   String? userName;
   String? userProfile;
+  String? nidOrBirth;
+  String? password;
 
   UserModel(
       {this.connecting_date,
@@ -19,7 +21,9 @@ class UserModel {
       this.teamNo,
       this.permitCode,
       this.userName,
-      this.userProfile});
+      this.userProfile,
+      this.nidOrBirth,
+      this.password});
 
   UserModel.fromMap({required DocumentSnapshot documentSnapshot}){
     docId = documentSnapshot.id;
@@ -31,5 +35,7 @@ class UserModel {
     userName = documentSnapshot['user_name'];
     permitCode = documentSnapshot['permitCode'];
     userProfile = documentSnapshot['user_profileUrl'];
+    nidOrBirth = documentSnapshot['nidOrBirthUrl'];
+    password = documentSnapshot['password'];
   }
 }

@@ -7,8 +7,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../widgets/image_compressed.dart';
 
-class ProductsProvider extends ChangeNotifier{
-
+class ProductsProvider extends ChangeNotifier {
   bool isLoading = false;
   String photoUrl = "";
 
@@ -31,11 +30,10 @@ class ProductsProvider extends ChangeNotifier{
     }
   }
 
-  clearImage(int index){
+  clearImage(int index) {
     afterConvertImageLists.removeAt(index);
     notifyListeners();
   }
-
 
   clearCoverProfile() {
     singleImage = null;
@@ -60,24 +58,137 @@ class ProductsProvider extends ChangeNotifier{
     }
   }
 
-  addProducts(String title, String description,String docsId,Function callback){
-    final usersRef = FirebaseFirestore.instance.collection("Users").doc(docsId);
-    Map<String, dynamic> data = {
-      'title': title,
-      'desc': description,
-      'image': photoUrl,
-      'created_at': DateTime.now(),
-    };
-    usersRef.collection("Products").add(data).then((value){
+  updateFailedReport(String item, String docsID, Function callback) {
+    isLoading = true;
+    notifyListeners();
+    final usersRef = FirebaseFirestore.instance.collection("Users").doc(docsID);
+    Map<String, dynamic> data = {'failed': item};
+    usersRef.update(data).then((value) {
       callback(true);
       isLoading = false;
       notifyListeners();
-    }).catchError((error){
+    }).catchError((onError) {
+      callback(false);
+      isLoading = false;
+      notifyListeners();
+      print(onError);
+    });
+  }
+
+  updateSuccessReport(String item, String docsID, Function callback) {
+    isLoading = true;
+    notifyListeners();
+    final usersRef = FirebaseFirestore.instance.collection("Users").doc(docsID);
+    Map<String, dynamic> data = {'success': item};
+    usersRef.update(data).then((value) {
+      callback(true);
+      isLoading = false;
+      notifyListeners();
+    }).catchError((onError) {
+      callback(false);
+      isLoading = false;
+      notifyListeners();
+      print(onError);
+    });
+  }
+
+  updateWallet(String item, String docsID, Function callback) {
+    isLoading = true;
+    notifyListeners();
+    final usersRef = FirebaseFirestore.instance.collection("Users").doc(docsID);
+    Map<String, dynamic> data = {'wallet': item};
+    usersRef.update(data).then((value) {
+      callback(true);
+      isLoading = false;
+      notifyListeners();
+    }).catchError((onError) {
+      callback(false);
+      isLoading = false;
+      notifyListeners();
+      print(onError);
+    });
+  }
+
+  changeAccountStatus(String docsID, Function callback) {
+    isLoading = true;
+    notifyListeners();
+    final usersRef = FirebaseFirestore.instance.collection("Users").doc(docsID);
+    Map<String, dynamic> data = {'is_approved': false};
+    usersRef.update(data).then((value) {
+      callback(true);
+      isLoading = false;
+      notifyListeners();
+    }).catchError((onError) {
+      callback(false);
+      isLoading = false;
+      notifyListeners();
+      print(onError);
+    });
+  }
+
+  reopenAccount(String docsID, Function callback) {
+    isLoading = true;
+    notifyListeners();
+    final usersRef = FirebaseFirestore.instance.collection("Users").doc(docsID);
+    Map<String, dynamic> data = {'is_approved': true};
+    usersRef.update(data).then((value) {
+      callback(true);
+      isLoading = false;
+      notifyListeners();
+    }).catchError((onError) {
+      callback(false);
+      isLoading = false;
+      notifyListeners();
+      print(onError);
+    });
+  }
+
+  addProducts(String title, String description, String path, Function callback) {
+    final usersRef = FirebaseFirestore.instance.collection("Products");
+    Map<String, dynamic> data = {'title': title, 'desc': description, 'image': photoUrl, 'created_at': DateTime.now()};
+    usersRef.add(data).then((value) {
+      callback(true);
+      isLoading = false;
+      notifyListeners();
+    }).catchError((error) {
       callback(false);
       isLoading = false;
       notifyListeners();
       Fluttertoast.showToast(msg: error);
-    });;
+    });
   }
 
+  addNotice(String title, String description, String path, Function callback) {
+    isLoading = true;
+    notifyListeners();
+    final usersRef = FirebaseFirestore.instance.collection("Notice");
+    Map<String, dynamic> data = {'title': title, 'desc': description, 'created_at': DateTime.now()};
+    usersRef.add(data).then((value) {
+      callback(true);
+      isLoading = false;
+      notifyListeners();
+    }).catchError((error) {
+      callback(false);
+      isLoading = false;
+      notifyListeners();
+      Fluttertoast.showToast(msg: error);
+    });
+  }
+
+  createPaymentMethod(String ammount, String number, String method, String docsID, Function callback) {
+    isLoading = true;
+    notifyListeners();
+    final usersRef = FirebaseFirestore.instance.collection("Users").doc(docsID);
+    Map<String, dynamic> data = {'amount': ammount, 'number': number, 'method': method, 'created_at': DateTime.now()};
+    usersRef.collection('Payment').add(data).then((value) {
+      callback(true);
+      isLoading = false;
+      notifyListeners();
+    }).catchError((error) {
+      callback(false);
+      isLoading = false;
+      notifyListeners();
+      Fluttertoast.showToast(msg: error);
+    });
+  }
 }

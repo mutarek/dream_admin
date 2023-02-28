@@ -1,3 +1,6 @@
+import 'package:dream_touch_admin/app/screens/add_products_screen.dart';
+import 'package:dream_touch_admin/app/screens/all_notice.dart';
+import 'package:dream_touch_admin/app/screens/unaproved_aproved_profile.dart';
 import 'package:dream_touch_admin/app/screens/user_lists_page.dart';
 import 'package:dream_touch_admin/app/utils/text.styles.dart';
 import 'package:dream_touch_admin/app/widgets/custom_button.dart';
@@ -10,6 +13,8 @@ import '../controller/auth_provider.dart';
 import '../controller/home_provider.dart';
 import '../utils/app_colors.dart';
 import '../widgets/custom_text_field.dart';
+import 'add_notice.dart';
+import 'all_products.dart';
 
 class AdminHome extends StatefulWidget {
   const AdminHome({Key? key}) : super(key: key);
@@ -38,7 +43,7 @@ class _AdminHomeState extends State<AdminHome> {
                           "Admin Panel",
                           style: robotoStyle700Bold.copyWith(fontSize: 20),
                         )),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Card(
                       child: ListTile(
                         onTap: (){
@@ -48,7 +53,57 @@ class _AdminHomeState extends State<AdminHome> {
                         title: Text('User List',style: robotoStyle700Bold.copyWith(fontSize:22)),
                         trailing: const Icon(Icons.arrow_circle_right),
                       ),
-                    )
+                    ),
+                    Card(
+                      child: ListTile(
+                        onTap: (){
+                          Get.to(UnaprovedProfileList());
+                        },
+                        leading: const Icon(Icons.man),
+                        title: Text('Unapproved Profile',style: robotoStyle700Bold.copyWith(fontSize:22,color: Colors.red)),
+                        trailing: const Icon(Icons.arrow_circle_right),
+                      ),
+                    ),
+                    Card(
+                      child: ListTile(
+                        onTap: (){
+                          Get.to(()=> AddProducts(isFromProduct: true));
+                        },
+                        leading: const Icon(Icons.production_quantity_limits_rounded),
+                        title: Text('Add Products',style: robotoStyle700Bold.copyWith(fontSize:22)),
+                        trailing: const Icon(Icons.arrow_circle_right),
+                      ),
+                    ),
+                    Card(
+                      child: ListTile(
+                        onTap: (){
+                          Get.to(()=> AllProducts());
+                        },
+                        leading: const Icon(Icons.production_quantity_limits_rounded),
+                        title: Text('All Products',style: robotoStyle700Bold.copyWith(fontSize:22)),
+                        trailing: const Icon(Icons.arrow_circle_right),
+                      ),
+                    ),
+                    Card(
+                      child: ListTile(
+                        onTap: (){
+                          Get.to(()=> AddNotice());
+                        },
+                        leading: const Icon(Icons.circle_notifications_outlined),
+                        title: Text('Add Notice',style: robotoStyle700Bold.copyWith(fontSize:22)),
+                        trailing: const Icon(Icons.arrow_circle_right),
+                      ),
+                    ),
+                    Card(
+                      child: ListTile(
+                        onTap: (){
+                          Get.to(()=> AllNotice());
+                        },
+                        leading: const Icon(Icons.circle_notifications_outlined),
+                        title: Text('All Notice',style: robotoStyle700Bold.copyWith(fontSize:22)),
+                        trailing: const Icon(Icons.arrow_circle_right),
+                      ),
+                    ),
                   ],
                 )),
           ),
