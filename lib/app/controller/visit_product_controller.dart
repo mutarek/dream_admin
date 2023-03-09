@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,6 +29,16 @@ class VisitProductController extends GetxController {
         isLoading(false);
       }
       return hotels;
+    });
+  }
+
+  deleteProduct(String docsId,int index){
+    collectionReference.doc(docsId).delete().then((value){
+      productList.removeAt(index);
+      Get.back();
+      Fluttertoast.showToast(msg: "Product deleted");
+    }).catchError((onError){
+      Fluttertoast.showToast(msg: "Something went wrong${onError.message}");
     });
   }
 }

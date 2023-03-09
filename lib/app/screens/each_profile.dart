@@ -21,6 +21,7 @@ class EachProfilePage extends StatelessWidget {
   final successController = TextEditingController();
   final walletController = TextEditingController();
   final paymentHistory = TextEditingController();
+  final leadController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +54,62 @@ class EachProfilePage extends StatelessWidget {
                   flex: 1,
                   child: Padding(
                     padding: const EdgeInsets.all(3),
+                    child: CustomButton(
+                      btnTxt: "Lead Generation",
+                      onTap: () {
+                        Get.bottomSheet(Container(
+                          padding: const EdgeInsets.all(10),
+                          height: 250,
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(25),
+                                topRight: Radius.circular(25),
+                              ),
+                              color: Colors.white),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 10),
+                              Text("Add Lead Controller", style: robotoStyle600SemiBold.copyWith(fontSize: 14)),
+                              const SizedBox(height: 5),
+                              CustomTextField(
+                                hintText: 'Lead Controller',
+                                isShowBorder: true,
+                                borderRadius: 11,
+                                verticalSize: 14,
+                                maxLines: 3,
+                                controller: leadController,
+                              ),
+                              const SizedBox(height: 10),
+                              productsProvider.isLoading
+                                  ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                                  : CustomButton(
+                                onTap: () {
+                                  productsProvider.updateLeadGena(leadController.text, userModel.docId.toString(), (status) {
+                                    if (status) {
+                                      failedController.clear();
+                                      if (Get.isBottomSheetOpen ?? false) {
+                                        Get.back();
+                                      }
+                                    } else {
+                                      Fluttertoast.showToast(msg: "Something went wrong");
+                                    }
+                                  });
+                                  //taskProvider.clearCoverProfile();
+                                  //taskProvider.pickImage();
+                                },
+                                btnTxt: "Update Lead Generation",
+                              ),
+                              const SizedBox(height: 30),
+                            ],
+                          ),
+                        ));
+                      },
+                    ),
                   ),
                 ),
                 Expanded(

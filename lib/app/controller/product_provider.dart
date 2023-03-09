@@ -75,6 +75,23 @@ class ProductsProvider extends ChangeNotifier {
     });
   }
 
+  updateLeadGena(String item, String docsID, Function callback) {
+    isLoading = true;
+    notifyListeners();
+    final usersRef = FirebaseFirestore.instance.collection("Users").doc(docsID);
+    Map<String, dynamic> data = {'lead': item};
+    usersRef.update(data).then((value) {
+      callback(true);
+      isLoading = false;
+      notifyListeners();
+    }).catchError((onError) {
+      callback(false);
+      isLoading = false;
+      notifyListeners();
+      print(onError);
+    });
+  }
+
   updateSuccessReport(String item, String docsID, Function callback) {
     isLoading = true;
     notifyListeners();
@@ -140,6 +157,23 @@ class ProductsProvider extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
       print(onError);
+    });
+  }
+
+  deleteUser(String docsID, Function callback) {
+    isLoading = true;
+    notifyListeners();
+    final usersRef = FirebaseFirestore.instance.collection("Users").doc(docsID);
+    usersRef.delete().then((value){
+      callback(true);
+      isLoading = false;
+      Fluttertoast.showToast(msg: "User deleted");
+      notifyListeners();
+    }).catchError((onError){
+      callback(false);
+      isLoading = false;
+      notifyListeners();
+      Fluttertoast.showToast(msg: onError);
     });
   }
 

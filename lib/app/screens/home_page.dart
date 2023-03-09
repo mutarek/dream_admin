@@ -34,7 +34,7 @@ class _AdminHomeState extends State<AdminHome> {
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Column(
                   children: [
                     Align(

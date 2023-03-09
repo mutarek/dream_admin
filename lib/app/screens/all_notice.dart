@@ -7,29 +7,39 @@ class AllNotice extends StatelessWidget {
   AllNotice({Key? key}) : super(key: key);
   final noticeCon = Get.put(NoticeController());
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PageAppBar(title: "All Notice"),
-      body: noticeCon.isLoading.value?
-      const Center(
-        child: CircularProgressIndicator(),
-      ):
-          noticeCon.noticeModel.isEmpty?
-              const Center(
-                child: Text("No Notice Available"),
-              ):
-              ListView.builder(
-                itemCount: noticeCon.noticeModel.length,
-                itemBuilder: (_,index){
-                  var item = noticeCon.noticeModel[index];
-                  return ListTile(
-                    title: Text(item.title!),
-                    subtitle: Text(item.description!),
-                  );
-                },
+        appBar: const PageAppBar(title: "All Notice"),
+        body: Obx(() => noticeCon.isLoading.value
+            ? const Center(
+                child: CircularProgressIndicator(),
               )
-    );
+            : noticeCon.noticeModel.isEmpty
+                ? const Center(
+                    child: Text("No Notice Available"),
+                  )
+                : ListView.builder(
+                    itemCount: noticeCon.noticeModel.length,
+                    itemBuilder: (_, index) {
+                      var item = noticeCon.noticeModel[index];
+                      return ListTile(
+                        title: Text(item.title!),
+                        subtitle: Text(item.description!),
+                        trailing: InkWell(
+                          onTap: (){
+                            noticeCon.deleteNotice(item.docId.toString(),index);
+                          },
+                          child: CircleAvatar(
+                            backgroundColor: Colors.black,
+                            child: Icon(
+                              Icons.delete_forever,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  )));
   }
 }

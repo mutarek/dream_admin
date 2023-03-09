@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-
 import '../model/user_model.dart';
 
 class EachUnAproved extends StatelessWidget {
@@ -42,18 +41,35 @@ class EachUnAproved extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  ElevatedButton(onPressed: (){
-                    productProvider.reopenAccount(userModel.docId.toString(), (status){
-                      if (status){
-                        Fluttertoast.showToast(msg: "Account is Activated");
-                        Get.back();
-                        Get.back();
-                      }
-                      else{
-                        Fluttertoast.showToast(msg: "Something went wrong");
-                      }
-                    });
-                  }, child: const Text("Approve")),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(onPressed: (){
+                        productProvider.reopenAccount(userModel.docId.toString(), (status){
+                          if (status){
+                            Fluttertoast.showToast(msg: "Account is Activated");
+                            Get.back();
+                            Get.back();
+                          }
+                          else{
+                            Fluttertoast.showToast(msg: "Something went wrong");
+                          }
+                        });
+                      }, child: const Text("Approve")),
+                      ElevatedButton(onPressed: (){
+                        productProvider.deleteUser(userModel.docId.toString(), (status){
+                          if (status){
+                            Fluttertoast.showToast(msg: "Account is Deleted");
+                            Get.back();
+                            Get.back();
+                          }
+                          else{
+                            Fluttertoast.showToast(msg: "Something went wrong");
+                          }
+                        });
+                      }, child: const Text("Delete")),
+                    ],
+                  ),
                   const SizedBox(height: 10),
                   Text("User Name: ${userModel.userName!}",style: robotoStyle700Bold.copyWith(fontSize: 15)),
                   Text("Team No: ${userModel.teamNo!}",style: robotoStyle700Bold.copyWith(fontSize: 15)),
