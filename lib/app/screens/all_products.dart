@@ -13,66 +13,62 @@ class AllProducts extends StatelessWidget {
     productCon.getAllProducts();
     return Scaffold(
         appBar: const PageAppBar(title: "All Products"),
-        body: Obx(()=>
-        productCon.isLoading.value?
-    const Center(
-    child: CircularProgressIndicator(),
-    ):ListView.builder(
-    itemCount: productCon.productList.length,
-      itemBuilder: (_, index) {
-        var data = productCon.productList[index];
-        return Container(
-          padding: const EdgeInsets.all(5),
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: data.image!,
-                    placeholder: (context, url) => const CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
-                    height: 130,
-                    width: double.infinity,
-                    fit: BoxFit.fitWidth,
-                  ),
-                  Positioned(
-                    right: 10,
-                    top: 10,
-                    child: InkWell(
-                      onTap: (){
-                        productCon.deleteProduct(data.docID.toString(),index);
-                      },
-                      child: const CircleAvatar(
-                        backgroundColor: Colors.white,
-                        child: Icon(
-                          Icons.delete,
-                          size: 30,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
+        body: Obx(() => productCon.isLoading.value
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                itemCount: productCon.productList.length,
+                itemBuilder: (_, index) {
+                  var data = productCon.productList[index];
+                  return Container(
+                    padding: const EdgeInsets.all(5),
                     child: Column(
                       children: [
-                        Text(
-                          data.title!,
-                          style: robotoStyle700Bold.copyWith(fontSize: 22, color: Colors.white),
-                        ),
-                        Text(
-                          data.description!,
-                          style: robotoStyle700Bold.copyWith(fontSize: 12, color: Colors.white),
-                        ),
+                        Stack(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: data.image!,
+                              placeholder: (context, url) => const CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => const Icon(Icons.error),
+                              height: 130,
+                              width: double.infinity,
+                              fit: BoxFit.fitWidth,
+                            ),
+                            Positioned(
+                              right: 10,
+                              top: 10,
+                              child: InkWell(
+                                onTap: () {
+                                  productCon.deleteProduct(data.docID.toString(), index);
+                                },
+                                child: const CircleAvatar(
+                                  backgroundColor: Colors.black,
+                                  child: Icon(
+                                    Icons.delete,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 10,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    data.title!,
+                                    style: robotoStyle700Bold.copyWith(fontSize: 22, color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        )
                       ],
                     ),
-                  )
-                ],
-              )
-            ],
-          ),
-        );
-      },
-    )));
+                  );
+                },
+              )));
   }
 }
